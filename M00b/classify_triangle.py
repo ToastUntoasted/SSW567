@@ -17,3 +17,12 @@ def classify_triangle(a, b, c):
         properties[1] = 'NotRight'
 
     return properties
+
+def main():
+    a = int(input("Enter the length of side a: "))
+    b = int(input("Enter the length of side b: "))
+    c = int(input("Enter the length of side c: "))
+    result = classify_triangle(a, b, c)
+    print(f"The triangle is classified as: {result[0]} and {result[1]}.")
+
+main()
