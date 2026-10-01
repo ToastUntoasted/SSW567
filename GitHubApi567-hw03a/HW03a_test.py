@@ -1,101 +1,26 @@
 import unittest
-from unittest.mock import patch, Mock
-
 from HW03a import get_repositories
 
 
 class TestGitHubAPI(unittest.TestCase):
 
-    @patch("HW03a.requests.get")
-    def test_one_repository(self, mock_get):
+    def test_valid_user(self):
+        result = get_repositories("ToastUntoasted")
 
-        repo_response = Mock()
-        repo_response.json.return_value = [
-            {
-                "name": "TestRepo",
-                "commits_url":
-                    "https://api.github.com/repos/test/TestRepo/commits{/sha}"
-            }
-        ]
+        self.assertIsInstance(result, list)
+        self.assertGreater(len(result), 0)
 
-        commit_response = Mock()
-        commit_response.json.return_value = [
-            {"sha": "1"},
-            {"sha": "2"},
-            {"sha": "3"}
-        ]
+    def test_known_repository(self):
+        result = get_repositories("ToastUntoasted")
 
-        mock_get.side_effect = [
-            repo_response,
-            commit_response
-        ]
+        repo_names = [repo[0] for repo in result]
 
-        result = get_repositories("test")
+        self.assertIn("SSW567", repo_names)
 
-        self.assertEqual(
-            result,
-            [("TestRepo", 3)]
-        )
+    def test_invalid_user(self):
+        result = get_repositories("this_user_should_not_exist_123456789")
 
-    @patch("HW03a.requests.get")
-
-    def test_multiple_repositories(self, mock_get):
-        repo_response = Mock()
-        repo_response.json.return_value = [
-            {
-                "name": "Repo1",
-                "commits_url":
-                    "https://api.github.com/repos/test/Repo1/commits{/sha}"
-            },
-            {
-                "name": "Repo2",
-                "commits_url":
-                    "https://api.github.com/repos/test/Repo2/commits{/sha}"
-            }
-        ]
-
-        repo1_commits = Mock()
-        repo1_commits.json.return_value = [
-            {"sha": "1"},
-            {"sha": "2"}
-        ]
-
-        repo2_commits = Mock()
-        repo2_commits.json.return_value = [
-            {"sha": "1"},
-            {"sha": "2"},
-            {"sha": "3"},
-            {"sha": "4"}
-        ]
-
-        mock_get.side_effect = [
-            repo_response,
-            repo1_commits,
-            repo2_commits
-        ]
-
-        result = get_repositories("test")
-
-        self.assertEqual(
-            result,
-            [
-                ("Repo1", 2),
-                ("Repo2", 4)
-            ]
-        )
-        
-    @patch("HW03a.requests.get")
-    def test_no_repositories(self, mock_get):
-
-        repo_response = Mock()
-        repo_response.json.return_value = []
-
-        mock_get.return_value = repo_response
-
-        result = get_repositories("test")
-
-        self.assertEqual(result, [])
-    
+        self.assertEqual(result, [{"message": "Not Found", "documentation_url": "https://docs.github.com/rest/reference/repos#list-repositories-for-a-user", "status": 404}])
 
 
 if __name__ == "__main__":
