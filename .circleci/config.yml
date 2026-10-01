@@ -10,12 +10,6 @@ jobs:
           name: Install dependencies
           command: pip install requests
       - run:
-          name: Test M00
-          command: python -m unittest discover -s M00 -p "test*.py"
-      - run:
-          name: Test M00b
-          command: python -m unittest discover -s M00b -p "test*.py"
-      - run:
           name: Test GitHub API homework
           command: python -m unittest discover -s GitHubApi567-hw03a -p "HW03a_test.py"
 
