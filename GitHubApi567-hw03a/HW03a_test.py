@@ -20,7 +20,7 @@ class TestGitHubAPI(unittest.TestCase):
     def test_invalid_user(self):
         result = get_repositories("this_user_should_not_exist_123456789")
 
-        self.assertEqual(result, [{"message": "Not Found", "documentation_url": "https://docs.github.com/rest/reference/repos#list-repositories-for-a-user", "status": 404}])
+        self.assertEqual(result, [])
 
 
 if __name__ == "__main__":
