@@ -1,4 +1,17 @@
+"""
+Name: Robert Galletta
+File: classify_triangle.py
+Date: 10-2-2026
+Description: This program classifies triangles based on the lengths of their sides. 
+It checks for invalid input, determines if the sides can form a triangle, 
+and classifies the triangle as Equilateral, Isosceles, or Scalene. 
+Additionally, it checks if the triangle is a right triangle.
+"""
 def classify_triangle(a, b, c):
+    """
+    Input: a, b, c are the lengths of the three sides of a triangle.
+    Output: A list containing two strings
+    """
     properties = ['','']
     if a <= 0 or b <= 0 or c <= 0:
         properties[0] = 'InvalidInput'
@@ -19,6 +32,10 @@ def classify_triangle(a, b, c):
     return properties
 
 def main():
+    """
+    This function prompts the user to input the lengths of the three sides of a triangle,
+    calls the classify_triangle function, and prints the classification of the triangle.
+    """
     a = int(input("Enter the length of side a: "))
     b = int(input("Enter the length of side b: "))
     c = int(input("Enter the length of side c: "))
