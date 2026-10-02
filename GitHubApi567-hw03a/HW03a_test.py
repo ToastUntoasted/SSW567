@@ -17,8 +17,17 @@ class TestGitHubAPI(unittest.TestCase):
 
         self.assertIn("SSW567", repo_names)
 
+    def test_commit_counts(self):
+        result = get_repositories("ToastUntoasted")
+
+        for repo_name, commit_count in result:
+            self.assertIsInstance(commit_count, int)
+            self.assertGreaterEqual(commit_count, 0)
+
     def test_invalid_user(self):
-        result = get_repositories("this_user_should_not_exist_123456789")
+        result = get_repositories(
+            "this_user_should_not_exist_123456789"
+        )
 
         self.assertEqual(result, [])
 
