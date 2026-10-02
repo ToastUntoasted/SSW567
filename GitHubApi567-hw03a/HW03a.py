@@ -14,6 +14,9 @@ def get_repositories(user_id):
     )
     data = response.json()
 
+    if not isinstance(data, list):
+        return []
+
     results = []
 
     for item in data:

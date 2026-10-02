@@ -11,8 +11,8 @@ jobs:
           command: pip install requests
       - run:
           name: Test GitHub API homework
-          command: python -m unittest discover -s GitHubApi567-hw03a -p "HW03a_test.py"
-          
+          command: python -m unittest discover -s GitHubApi567-hw03a -p "HW03b_test.py"
+
 workflows:
   test-workflow:
     jobs:
